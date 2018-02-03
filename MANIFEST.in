@@ -1,0 +1,2 @@
+include versioneer.py
+include skift/_version.py
