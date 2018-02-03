@@ -10,8 +10,8 @@ before_install:
   - pip install cython
   - pip install numpy pandas
   - git clone https://github.com/facebookresearch/fastText.git
-    cd fastText
-    pip install .
+  - cd fastText
+  - pip install .
   - cd ..
   - pip install scikit-learn
   - pip install codecov
