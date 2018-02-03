@@ -1,6 +1,6 @@
 skift
 ######
-|PyPI-Status| |PyPI-Versions| |Build-Status| |Codecov| |LICENCE|
+|PyPI-Status| |PyPI-Versions| |Build-Status| |LICENCE|
 
 ``scikit-learn`` wrappers for Python ``fastText``.
 
@@ -17,9 +17,18 @@ skift
 Installation
 ============
 
+Dependencies:
+
+* ``numpy``
+* ``scikit-learn``
+* ``fastText`` Python package
+
 .. code-block:: bash
 
   pip install skift
+  
+
+NOTICE: Installing ``skift`` will not install any of its dependencies. They should be install separately.
 
 
 Wrappers
@@ -27,8 +36,11 @@ Wrappers
 
 ``skift`` includes several wrappers: 
 
-Standard Wrappers
+Standard wrappers
 -----------------
+
+* ``FirstColFtClassifier`` - An sklearn classifier adapter for fasttext that takes the first column of input ``ndarray`` objects as input.
+* ``IdxBasedFtClassifier`` - An sklearn classifier adapter for fasttext that takes input by index.
 
 
 pandas-dependent wrappers
@@ -36,6 +48,8 @@ pandas-dependent wrappers
 
 These wrappers assume the ``X`` parameters given to ``fit``, ``predict``, and ``predict_proba`` methods is a ``pandas.DataFrame`` object:
 
+* ``FirstObjFtClassifier`` - An sklearn adapter for fasttext using the first object column as input.
+* ``ColLblBasedFtClassifier`` - An sklearn adapter for fasttext taking input by column label.
 
 Contributing
 ============
@@ -99,5 +113,5 @@ Created by Shay Palachy (shay.palachy@gmail.com).
 .. |LICENCE| image:: https://img.shields.io/github/license/shaypal5/skift.svg
   :target: https://github.com/shaypal5/skift/blob/master/LICENSE
 
-.. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
-   :target: https://codecov.io/github/shaypal5/skift?branch=master
+.. .. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
+..    :target: https://codecov.io/github/shaypal5/skift?branch=master

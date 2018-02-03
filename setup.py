@@ -15,7 +15,7 @@ if sys.version_info.major < 3 or sys.version_info.minor < 4:
     sys.exit(1)
 
 
-INSTALL_REQUIRES = ['numpy', 'pandas']
+INSTALL_REQUIRES = []
 TEST_REQUIRES = ['pytest', 'coverage', 'pytest-cov']
 
 with open('README.rst') as f:
