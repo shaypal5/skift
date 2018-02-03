@@ -6,8 +6,8 @@ import abc
 import numpy as np
 from fastText import train_supervised
 from sklearn.base import BaseEstimator, ClassifierMixin
-from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.multiclass import unique_labels
+from sklearn.exceptions import NotFittedError
 
 from .util import (
     temp_dataset_fpath,
@@ -38,7 +38,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             return pickle_dict
         return self.__dict__
 
-    def __setstate(self, dicti):
+    def __setstate__(self, dicti):
         for key in dicti:
             if key == 'model':
                 unpic_model = bytes_to_python_fasttext_model(dicti[key])
@@ -72,7 +72,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def _input_col(self, X):
-        pass
+        pass  # pragma: no cover
 
     def fit(self, X, y):
         """Fits the classifier
@@ -113,7 +113,9 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
 
     def _predict(self, X, k=1):
         # Ensure that fit had been called
-        check_is_fitted(self, ['model'])
+        if self.model is None:
+            raise NotFittedError("This {} instance is not fitted yet.".format(
+                self.__class__.__name__))
 
         # Input validation{
         self._validate_x(X)
@@ -216,7 +218,7 @@ class FirstObjFtClassifier(FtClassifierABC):
             if dtype == object:
                 input_col_name = col_name
                 break
-        if input_col_name:
+        if input_col_name is not None:
             return X[input_col_name]
         raise ValueError("No object dtype column in input param X.")
 

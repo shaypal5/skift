@@ -17,6 +17,6 @@ before_install:
   - pip install codecov
 install:
   - pip install ".[test]"
-script: pytest --cov=skift
+script: pytest
 after_success:
   - codecov
