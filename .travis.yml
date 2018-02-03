@@ -1,0 +1,18 @@
+language: python
+python:
+- '3.5'
+- '3.6'
+# notifications:
+#   email:
+#     on_success: change
+#     on_failure: always
+before_install:
+  - pip install numpy pandas
+  - pip install scikit-learn
+  - pip install fastText
+  - pip install codecov
+install:
+  - pip install ".[test]"
+script: pytest --cov=skift
+after_success:
+  - codecov

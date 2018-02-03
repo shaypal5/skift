@@ -1,9 +1,7 @@
 
 """scikit-learn classifier wrapper for fasttext."""
 
-import os
 import abc
-from random import randint
 
 import numpy as np
 from fastText import train_supervised
@@ -11,16 +9,12 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.multiclass import unique_labels
 
-from .util import dump_xy_to_fasttext_format
-
-
-TEMP_DIR = os.path.expanduser('~/.temp')
-os.makedirs(TEMP_DIR, exist_ok=True)
-
-
-def temp_dataset_fpath():
-    temp_fname = 'temp_ft_trainset_{}.ft'.format(randint(1, 99999))
-    return os.path.join(TEMP_DIR, temp_fname)
+from .util import (
+    temp_dataset_fpath,
+    dump_xy_to_fasttext_format,
+    python_fasttext_model_to_bytes,
+    bytes_to_python_fasttext_model,
+)
 
 
 class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
@@ -34,17 +28,34 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         self.kwargs.pop('input', None)  # remove the 'input' arg, if given
+        self.model = None
+
+    def __getstate__(self):
+        if self.model is not None:
+            model_pickle = python_fasttext_model_to_bytes(self.model)
+            pickle_dict = self.__dict__.copy()
+            pickle_dict['model'] = model_pickle
+            return pickle_dict
+        return self.__dict__
+
+    def __setstate(self, dicti):
+        for key in dicti:
+            if key == 'model':
+                unpic_model = bytes_to_python_fasttext_model(dicti[key])
+                setattr(self, 'model', unpic_model)
+            else:
+                setattr(self, key, dicti[key])
 
     ALLOWED_DTYPES_ = ['<U26', object]
 
     @staticmethod
     def _validate_x(X):
         try:
-            if X.dtype not in FtClassifierABC.ALLOWED_DTYPES_:
+            if len(X.shape) != 2:
                 raise ValueError(
-                    "FastTextClassifier methods must get a numpy array of "
-                    "dtype object as the X parameter.")
-            return np.array(X)
+                    "FastTextClassifier methods must get a two-dimensional "
+                    "numpy array (or castable) as the X parameter.")
+            return X
         except AttributeError:
             return FtClassifierABC._validate_x(np.array(X))
 
@@ -165,7 +176,7 @@ class FirstColFtClassifier(FtClassifierABC):
     """
 
     def _input_col(self, X):
-        return X[:, 0]
+        return np.array(X)[:, 0]
 
 
 class IdxBasedFtClassifier(FtClassifierABC):
@@ -184,7 +195,7 @@ class IdxBasedFtClassifier(FtClassifierABC):
         self.input_ix = input_ix
 
     def _input_col(self, X):
-        return X[:, self.input_ix]
+        return np.array(X)[:, self.input_ix]
 
 
 class FirstObjFtClassifier(FtClassifierABC):
