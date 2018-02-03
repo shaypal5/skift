@@ -10,7 +10,7 @@ before_install:
   - pip install cython
   - pip install numpy pandas
   - pip install scikit-learn
-  - pip install fastText
+  - pip install fasttext
   - pip install codecov
 install:
   - pip install ".[test]"
