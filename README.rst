@@ -1,6 +1,6 @@
 skift
 ######
-|PyPI-Status| |PyPI-Versions| |Build-Status| |LICENCE|
+|PyPI-Status| |PyPI-Versions| |Build-Status| |Codecov| |LICENCE|
 
 ``scikit-learn`` wrappers for Python ``fastText``.
 
@@ -125,5 +125,5 @@ Created by Shay Palachy (shay.palachy@gmail.com).
 .. |LICENCE| image:: https://img.shields.io/github/license/shaypal5/skift.svg
   :target: https://github.com/shaypal5/skift/blob/master/LICENSE
 
-.. .. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
-..    :target: https://codecov.io/github/shaypal5/skift?branch=master
+.. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
+   :target: https://codecov.io/github/shaypal5/skift?branch=master
