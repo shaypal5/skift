@@ -8,7 +8,7 @@ python:
 #     on_failure: always
 before_install:
   - pip install cython
-  - pip install numpy pandas
+  - pip install numpy pandas scipy
   - git clone https://github.com/facebookresearch/fastText.git
   - cd fastText
   - pip install .
