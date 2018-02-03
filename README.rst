@@ -34,13 +34,13 @@ NOTICE: Installing ``skift`` will not install any of its dependencies. They shou
 Features
 ========
 
+* Adheres to the ``scikit-learn`` classifier API.
+* Caters to the common use case of ``pandas.DataFrame`` inputs.
+* Enables easy stacking of ``fastText`` with other types of ``scikit-learn``-compliant architecture.
+* Pickle-able classifier objects.
 * Pure python.
 * Supports Python 3.4+.
 * Fully tested.
-* Pickle-able classifier objects.
-* Adheres to the ``scikit-learn`` classifier API.
-* Caters the common use case of ``pandas.DataFrame`` inputs.
-* Enables easy stacking of ``fastText`` with other types of ``scikit-learn``-compliant architecture.
 
 
 Wrappers

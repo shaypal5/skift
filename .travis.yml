@@ -7,6 +7,7 @@ python:
 #     on_success: change
 #     on_failure: always
 before_install:
+  - pip install cython
   - pip install numpy pandas
   - pip install scikit-learn
   - pip install fastText
