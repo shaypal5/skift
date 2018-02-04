@@ -32,7 +32,7 @@ Dependencies:
   pip install skift
   
 
-NOTICE: Installing ``skift`` will not install any of its dependencies. They should be install separately.
+*NOTICE:* Installing ``skift`` will not install any of its dependencies. They should be install separately.
 
 
 Features
@@ -52,7 +52,9 @@ Wrappers
 
 ``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features. 
 
-``skift`` includes several ``scikit-learn``-compatible wrappers for the ``fastText`` Python package which cater to these use cases:
+``skift`` includes several ``scikit-learn``-compatible wrappers for the ``fastText`` Python package which cater to these use cases.
+
+*NOTICE:* Any additional keyword arguments provided to the classifier constructor, besides those required, will be forwarded to the ``fastText.train_supervised`` method on every call to ``fit``.
 
 Standard wrappers
 -----------------
@@ -60,7 +62,27 @@ Standard wrappers
 These wrappers do not make additional assumptions on input besides those commonly made by ``scikit-learn`` classifies; i.e. that input is an ``ndarray`` objects and such.
 
 * ``FirstColFtClassifier`` - An sklearn classifier adapter for fasttext that takes the first column of input ``ndarray`` objects as input.
-* ``IdxBasedFtClassifier`` - An sklearn classifier adapter for fasttext that takes input by column index.
+
+.. code-block:: python
+
+  >>> from skift import FirstColFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = FirstColFtClassifier()
+  >>> sk_clf.fit(df[['txt']], df['lbl'])
+  >>> sk_clf.predict([['woof']])
+  [0]
+
+* ``IdxBasedFtClassifier`` - An sklearn classifier adapter for fasttext that takes input by column index. This is set on object construction by providing the ``input_ix`` parameter to the constructor.
+
+.. code-block:: python
+
+  >>> from skift import IdxBasedFtClassifier
+  >>> df = pandas.DataFrame([[5, 'woof', 0], [83, 'meow', 1]], columns=['count', 'txt', 'lbl'])
+  >>> sk_clf = IdxBasedFtClassifier(input_ix=1)
+  >>> sk_clf.fit(df[['count', 'txt']], df['lbl'])
+  >>> sk_clf.predict([['woof']])
+  [0]
+
 
 
 pandas-dependent wrappers
@@ -69,7 +91,26 @@ pandas-dependent wrappers
 These wrappers assume the ``X`` parameters given to ``fit``, ``predict``, and ``predict_proba`` methods is a ``pandas.DataFrame`` object:
 
 * ``FirstObjFtClassifier`` - An sklearn adapter for fasttext using the first column of ``dtype == object`` as input.
-* ``ColLblBasedFtClassifier`` - An sklearn adapter for fasttext taking input by column label.
+
+.. code-block:: python
+
+  >>> from skift import FirstObjFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = FirstObjFtClassifier()
+  >>> sk_clf.fit(df[['txt']], df['lbl'])
+  >>> sk_clf.predict([['woof']])
+  [0]
+
+* ``ColLblBasedFtClassifier`` - An sklearn adapter for fasttext taking input by column label. This is set on object construction by providing the ``input_col_lbl`` parameter to the constructor.
+
+.. code-block:: python
+
+  >>> from skift import ColLblBasedFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = ColLblBasedFtClassifier(input_col_lbl='txt')
+  >>> sk_clf.fit(df[['txt']], df['lbl'])
+  >>> sk_clf.predict([['woof']])
+  [0]
 
 Contributing
 ============
