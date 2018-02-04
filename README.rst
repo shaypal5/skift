@@ -39,7 +39,7 @@ Features
 ========
 
 * Adheres to the ``scikit-learn`` classifier API, including ``predict_proba``.
-* Caters to the common use case of ``pandas.DataFrame`` inputs.
+* Also caters to the common use case of ``pandas.DataFrame`` inputs.
 * Enables easy stacking of ``fastText`` with other types of ``scikit-learn``-compliant classifiers.
 * Pickle-able classifier objects.
 * Pure python.
@@ -50,13 +50,17 @@ Features
 Wrappers
 =========
 
-``skift`` includes several wrappers: 
+``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features. 
+
+``skift`` includes several ``scikit-learn``-compatible wrappers for the ``fastText`` Python package which cater to these use cases:
 
 Standard wrappers
 -----------------
 
+These wrappers do not make additional assumptions on input besides those commonly made by ``scikit-learn`` classifies; i.e. that input is an ``ndarray`` objects and such.
+
 * ``FirstColFtClassifier`` - An sklearn classifier adapter for fasttext that takes the first column of input ``ndarray`` objects as input.
-* ``IdxBasedFtClassifier`` - An sklearn classifier adapter for fasttext that takes input by index.
+* ``IdxBasedFtClassifier`` - An sklearn classifier adapter for fasttext that takes input by column index.
 
 
 pandas-dependent wrappers
@@ -64,7 +68,7 @@ pandas-dependent wrappers
 
 These wrappers assume the ``X`` parameters given to ``fit``, ``predict``, and ``predict_proba`` methods is a ``pandas.DataFrame`` object:
 
-* ``FirstObjFtClassifier`` - An sklearn adapter for fasttext using the first object column as input.
+* ``FirstObjFtClassifier`` - An sklearn adapter for fasttext using the first column of ``dtype == object`` as input.
 * ``ColLblBasedFtClassifier`` - An sklearn adapter for fasttext taking input by column label.
 
 Contributing
@@ -82,12 +86,12 @@ Clone:
   git clone git@github.com:shaypal5/skift.git
 
 
-Install in development mode:
+Install in development mode, including test dependencies:
 
 .. code-block:: bash
 
   cd skift
-  pip install -e .
+  pip install -e '.[test]'
 
 
 Running the tests
@@ -97,7 +101,6 @@ To run the tests use:
 
 .. code-block:: bash
 
-  pip install pytest pytest-cov coverage
   cd skift
   pytest
 
