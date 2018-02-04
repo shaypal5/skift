@@ -6,8 +6,12 @@ skift
 
 .. code-block:: python
 
-  import skift
-  # coming soon...
+  >>> from skift import FirstColFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = FirstColFtClassifier()
+  >>> sk_clf.fit(df[['txt']], df['lbl'])
+  >>> sk_clf.predict([['woof']])
+  [0]
 
 .. contents::
 
