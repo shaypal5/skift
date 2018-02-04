@@ -32,7 +32,7 @@ Dependencies:
   pip install skift
   
 
-*NOTICE:* Installing ``skift`` will not install any of its dependencies. They should be install separately.
+**NOTICE:** Installing ``skift`` will not install any of its dependencies. They should be install separately.
 
 
 Features
@@ -54,7 +54,7 @@ Wrappers
 
 ``skift`` includes several ``scikit-learn``-compatible wrappers for the ``fastText`` Python package which cater to these use cases.
 
-*NOTICE:* Any additional keyword arguments provided to the classifier constructor, besides those required, will be forwarded to the ``fastText.train_supervised`` method on every call to ``fit``.
+**NOTICE:** Any additional keyword arguments provided to the classifier constructor, besides those required, will be forwarded to the ``fastText.train_supervised`` method on every call to ``fit``.
 
 Standard wrappers
 -----------------
