@@ -37,7 +37,7 @@ Dependencies:
 
 .. code-block:: bash
 
-  pip install skift[fasttext]  --process-dependency-links
+  pip install skift[fasttext] --process-dependency-links
 
 
 Features
