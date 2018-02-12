@@ -17,7 +17,7 @@ before_install:
   # - pip install scikit-learn
   - pip install codecov
 install:
-  - pip install ".[test,fasttext]"
+  - pip install ".[test,fasttext]" --process-dependency-links
 script: pytest
 after_success:
   - codecov
