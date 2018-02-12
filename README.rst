@@ -33,7 +33,7 @@ Dependencies:
   pip install skift
   
 
-**NOTICE:** Installing ``skift`` will not install ``fasttext`` itself. You can have ``skift`` install ``fasttext`` for you, run:
+**NOTICE:** Installing ``skift`` will not install ``fasttext`` itself. To have ``skift`` install ``fasttext`` for you, run:
 
 .. code-block:: bash
 

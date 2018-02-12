@@ -19,8 +19,7 @@ INSTALL_REQUIRES = [
     'scipy',
     'scikit-learn',
 ]
-FT_REQUIRES = [
-    *INSTALL_REQUIRES,
+FT_REQUIRES = INSTALL_REQUIRES + [
     'fasttext==0.1.0+git.3b5fd29',
 ]
 TEST_REQUIRES = [
