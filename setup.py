@@ -45,7 +45,7 @@ setuptools.setup(
     url='https://github.com/shaypal5/skift',
     packages=setuptools.find_packages(),
     include_package_data=True,
-    python_requires=">=3.4",
+    python_requires=">=3.5",
     install_requires=[
         INSTALL_REQUIRES
     ],
@@ -60,7 +60,6 @@ setuptools.setup(
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries',
