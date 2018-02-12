@@ -8,16 +8,16 @@ python:
 #     on_success: change
 #     on_failure: always
 before_install:
-  - pip install cython
-  - pip install numpy pandas scipy
-  - git clone https://github.com/facebookresearch/fastText.git
-  - cd fastText
-  - pip install .
-  - cd ..
-  - pip install scikit-learn
+  # - pip install cython
+  # - pip install numpy pandas scipy
+  # - git clone https://github.com/facebookresearch/fastText.git
+  # - cd fastText
+  # - pip install .
+  # - cd ..
+  # - pip install scikit-learn
   - pip install codecov
 install:
-  - pip install ".[test]"
+  - pip install ".[test,fasttext]"
 script: pytest
 after_success:
   - codecov

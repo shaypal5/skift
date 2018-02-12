@@ -24,6 +24,7 @@ Installation
 Dependencies:
 
 * ``numpy``
+* ``scipy``
 * ``scikit-learn``
 * ``fastText`` Python package
 
@@ -32,7 +33,11 @@ Dependencies:
   pip install skift
   
 
-**NOTICE:** Installing ``skift`` will not install any of its dependencies. They should be installed separately.
+**NOTICE:** Installing ``skift`` will not install ``fasttext`` itself. You can have ``skift`` install ``fasttext`` for you, run:
+
+.. code-block:: bash
+
+  pip install skift[fasttext]  --process-dependency-links
 
 
 Features
@@ -133,6 +138,16 @@ Install in development mode, including test dependencies:
 
   cd skift
   pip install -e '.[test]'
+  # or with pipenv
+  pipenv install --dev
+
+
+To also install ``fasttext``:
+
+.. code-block:: bash
+
+  cd skift
+  pip install -e '.[test,fasttext]' --process-dependency-links
 
 
 Running the tests
@@ -144,6 +159,8 @@ To run the tests use:
 
   cd skift
   pytest
+  # or with pipenv
+  pipenv run pytest
 
 
 Adding documentation
@@ -153,6 +170,8 @@ The project is documented using the `numpy docstring conventions`_, which were c
 
 .. _`numpy docstring conventions`: https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
 .. _`these conventions`: https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
+
+Additionally, if you update this ``README.rst`` file,  use ``python setup.py checkdocs`` (or ``pipenv run`` the same command) to validate it compiles.
 
 
 Credits

@@ -1,6 +1,7 @@
 
 """scikit-learn classifier wrapper for fasttext."""
 
+import os
 import abc
 
 import numpy as np
@@ -98,13 +99,17 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         self.class_labels_ = [
             '__label__{}'.format(lbl) for lbl in self.classes_]
         # Dump training set to a fasttext-compatible file
-        self.temp_trainset_fpath = temp_dataset_fpath()
+        temp_trainset_fpath = temp_dataset_fpath()
         input_col = self._input_col(X)
-        dump_xy_to_fasttext_format(input_col, y, self.temp_trainset_fpath)
+        dump_xy_to_fasttext_format(input_col, y, temp_trainset_fpath)
         # train
         self.model = train_supervised(
-            input=self.temp_trainset_fpath, **self.kwargs)
+            input=temp_trainset_fpath, **self.kwargs)
         # Return the classifier
+        try:
+            os.remove(temp_trainset_fpath)
+        except FileNotFoundError:  # pragma: no cover
+            pass
         return self
 
     @staticmethod
