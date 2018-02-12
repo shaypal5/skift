@@ -46,9 +46,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     python_requires=">=3.5",
-    install_requires=[
-        INSTALL_REQUIRES
-    ],
+    install_requires=INSTALL_REQUIRES,
     extras_require={
         'test': TEST_REQUIRES + INSTALL_REQUIRES,
         'fasttext': FT_REQUIRES,
