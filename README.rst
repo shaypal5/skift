@@ -58,7 +58,7 @@ Wrappers
 
 ``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features. 
 
-``skift`` includes several ``scikit-learn``-compatible wrappers for the `official <https://github.com/facebookresearch/fastText/tree/master/python>`_ ``fastText`` Python bindings which cater to these use cases.
+``skift`` includes several ``scikit-learn``-compatible wrappers (for the `official <https://github.com/facebookresearch/fastText/tree/master/python>`_ ``fastText`` Python bindings) which cater to these use cases.
 
 **NOTICE:** Any additional keyword arguments provided to the classifier constructor, besides those required, will be forwarded to the ``fastText.train_supervised`` method on every call to ``fit``.
 
