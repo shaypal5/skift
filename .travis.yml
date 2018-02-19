@@ -19,10 +19,10 @@ before_install:
   # - pip install scikit-learn
   - pip install codecov
 install:
-  -- if [ "$TO_RUN" = "TESTS" ]; then 
+  - if [ "$TO_RUN" = "TESTS" ]; then 
        pip install ".[test,fasttext]" --process-dependency-links 
      fi
-  -- if [ "$TO_RUN" = "BUILD" ]; then 
+  - if [ "$TO_RUN" = "BUILD" ]; then 
        pip install "skift[fasttext]" --process-dependency-links
      fi
 script: pytest
