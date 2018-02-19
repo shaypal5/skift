@@ -17,7 +17,7 @@ before_install:
   # - pip install .
   # - cd ..
   # - pip install scikit-learn
-  - pip install git+https://github.com/facebookresearch/fastText.git@3b5fd293597de550a131d81436b9755902f39bb2
+  - pip install git+https://github.com/facebookresearch/fastText.git@ca8c5face7d5f3a64fff0e4dfaf58d60a691cb7c
   - pip install codecov
 install:
        pip install ".[test]" --process-dependency-links 
