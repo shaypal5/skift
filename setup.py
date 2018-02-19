@@ -7,21 +7,21 @@ import setuptools
 import versioneer
 
 
-DEPENDENCY_LINKS = [
-    (
-        'git+https://github.com/facebookresearch/fastText.git'
-        '@3b5fd293597de550a131d81436b9755902f39bb2'
-        '#egg=fasttext-0.1.0+git.3b5fd29'
-    ),
-]
+# DEPENDENCY_LINKS = [
+#     (
+#         'git+https://github.com/facebookresearch/fastText.git'
+#         '@3b5fd293597de550a131d81436b9755902f39bb2'
+#         '#egg=fasttext-0.1.0+git.3b5fd29'
+#     ),
+# ]
 INSTALL_REQUIRES = [
     'numpy',
     'scipy',
     'scikit-learn',
 ]
-FT_REQUIRES = INSTALL_REQUIRES + [
-    'fasttext==0.1.0+git.3b5fd29',
-]
+# FT_REQUIRES = INSTALL_REQUIRES + [
+#     'fasttext==0.1.0+git.3b5fd29',
+# ]
 TEST_REQUIRES = [
     # testing and coverage
     'pytest', 'coverage', 'pytest-cov',
@@ -49,9 +49,9 @@ setuptools.setup(
     install_requires=INSTALL_REQUIRES,
     extras_require={
         'test': TEST_REQUIRES + INSTALL_REQUIRES,
-        'fasttext': FT_REQUIRES,
+        # 'fasttext': FT_REQUIRES,
     },
-    dependency_links=DEPENDENCY_LINKS,
+    # dependency_links=DEPENDENCY_LINKS,
     classifiers=[
         # Trove classifiers
         # (https://pypi.python.org/pypi?%3Aaction=list_classifiers)
