@@ -33,7 +33,7 @@ Dependencies:
   pip install skift
   
 
-**NOTICE:** Installing ``skift`` will not install ``fasttext`` itself, as a `the official Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_ are not currently maintaned on PyPI. 
+**NOTE:** Installing ``skift`` will not install ``fasttext`` itself, as a `the official Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_ are not currently maintaned on PyPI. 
 
 To install the version of ``fasttext`` (and its official Python bindings) which ``skift`` is tested against, run: 
 
