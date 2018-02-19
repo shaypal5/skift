@@ -2,9 +2,9 @@ language: python
 python:
   - '3.5'
   - '3.6'
-env:
-  - TO_RUN=TESTS
-  - TO_RUN=BUILD
+# env:
+#   - TO_RUN=TESTS
+#   - TO_RUN=BUILD
 # notifications:
 #   email:
 #     on_success: change
@@ -17,14 +17,10 @@ before_install:
   # - pip install .
   # - cd ..
   # - pip install scikit-learn
+  - pip install git+https://github.com/facebookresearch/fastText.git@3b5fd293597de550a131d81436b9755902f39bb2
   - pip install codecov
 install:
-  - if [ "$TO_RUN" = "TESTS" ]; then 
-       pip install ".[test,fasttext]" --process-dependency-links 
-     fi
-  - if [ "$TO_RUN" = "BUILD" ]; then 
-       pip install "skift[fasttext]" --process-dependency-links
-     fi
+       pip install ".[test]" --process-dependency-links 
 script: pytest
 after_success:
   - codecov
