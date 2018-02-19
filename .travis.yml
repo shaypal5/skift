@@ -1,7 +1,10 @@
 language: python
 python:
-- '3.5'
-- '3.6'
+  - '3.5'
+  - '3.6'
+env:
+  - TO_RUN=TESTS
+  - TO_RUN=BUILD
 # notifications:
 #   email:
 #     on_success: change
@@ -16,7 +19,12 @@ before_install:
   # - pip install scikit-learn
   - pip install codecov
 install:
-  - pip install ".[test,fasttext]" --process-dependency-links
+  -- if [ "$TO_RUN" = "TESTS" ]; then 
+       pip install ".[test,fasttext]" --process-dependency-links 
+     fi
+  -- if [ "$TO_RUN" = "BUILD" ]; then 
+       pip install "skift[fasttext]" --process-dependency-links
+     fi
 script: pytest
 after_success:
   - codecov
