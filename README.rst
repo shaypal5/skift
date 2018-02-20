@@ -51,7 +51,7 @@ Features
 * Pickle-able classifier objects.
 * Built around the `official fasttext Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_.
 * Pure python.
-* Supports Python 3.4+.
+* Supports Python 3.5+.
 * Fully tested.
 
 
