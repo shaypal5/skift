@@ -47,6 +47,21 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             else:
                 setattr(self, key, dicti[key])
 
+    def get_params(self, deep=True):
+        """Get parameters for this estimator.
+        Parameters
+        ----------
+        deep : boolean, optional
+            If True, will return the parameters for this estimator and
+            contained subobjects that are estimators.
+        Returns
+        -------
+        params : mapping of string to any
+            Parameter names mapped to their values.
+        """
+        # re-implementation that will preserve ft kwargs
+        return self.kwargs
+
     ALLOWED_DTYPES_ = ['<U26', object]
 
     @staticmethod
@@ -204,6 +219,21 @@ class IdxBasedFtClassifier(FtClassifierABC):
     def _input_col(self, X):
         return np.array(X)[:, self.input_ix]
 
+    def get_params(self, deep=True):
+        """Get parameters for this estimator.
+        Parameters
+        ----------
+        deep : boolean, optional
+            If True, will return the parameters for this estimator and
+            contained subobjects that are estimators.
+        Returns
+        -------
+        params : mapping of string to any
+            Parameter names mapped to their values.
+        """
+        # re-implementation that will preserve ft kwargs
+        return {'input_ix': self.input_ix, **self.kwargs}
+
 
 class FirstObjFtClassifier(FtClassifierABC):
     """An sklearn adapter for fasttext using the first object column as input.
@@ -248,3 +278,18 @@ class ColLblBasedFtClassifier(FtClassifierABC):
 
     def _input_col(self, X):
         return X[self.input_col_lbl]
+
+    def get_params(self, deep=True):
+        """Get parameters for this estimator.
+        Parameters
+        ----------
+        deep : boolean, optional
+            If True, will return the parameters for this estimator and
+            contained subobjects that are estimators.
+        Returns
+        -------
+        params : mapping of string to any
+            Parameter names mapped to their values.
+        """
+        # re-implementation that will preserve ft kwargs
+        return {'input_col_lbl': self.input_col_lbl, **self.kwargs}
