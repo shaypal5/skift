@@ -198,7 +198,7 @@ class IdxBasedFtClassifier(FtClassifierABC):
         fasttext.train_supervised.
     """
     def __init__(self, input_ix, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.input_ix = input_ix
 
     def _input_col(self, X):
@@ -243,7 +243,7 @@ class ColLblBasedFtClassifier(FtClassifierABC):
     """
 
     def __init__(self, input_col_lbl, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         self.input_col_lbl = input_col_lbl
 
     def _input_col(self, X):
