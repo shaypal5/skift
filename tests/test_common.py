@@ -78,7 +78,7 @@ def test_first_obj():
 
 def test_col_lbl():
     ftdf = _ftdf()
-    ft_clf = ColLblBasedFtClassifier('txt')
+    ft_clf = ColLblBasedFtClassifier('txt', epoch=14)
     ft_clf.fit(ftdf[['txt']], ftdf['lbl'])
 
     assert ft_clf.predict(pd.DataFrame(
@@ -91,3 +91,10 @@ def test_col_lbl():
         pd.DataFrame([['woof lol']], columns=['txt']))[0] == 0
     assert ft_clf.predict(
         pd.DataFrame([['meow lolz']], columns=['txt']))[0] == 1
+
+
+def test_bad_param():
+    ftdf = _ftdf()
+    ft_clf = ColLblBasedFtClassifier('txt', bad_param=14)
+    with pytest.raises(TypeError):
+        ft_clf.fit(ftdf[['txt']], ftdf['lbl'])
