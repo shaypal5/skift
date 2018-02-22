@@ -2,6 +2,7 @@
 
 import pytest
 import pandas as pd
+from sklearn.model_selection import cross_val_score
 
 from skift import (
     FirstColFtClassifier,
@@ -98,3 +99,36 @@ def test_bad_param():
     ft_clf = ColLblBasedFtClassifier('txt', bad_param=14)
     with pytest.raises(TypeError):
         ft_clf.fit(ftdf[['txt']], ftdf['lbl'])
+
+
+def _big_ftdf():
+    return pd.DataFrame(
+        data=[
+            ['woof woof', 0],
+            ['woof', 0],
+            ['howl', 0],
+            ['growl', 0],
+            ['meow meow', 1],
+            ['meow', 1],
+            ['prr', 1],
+            ['cheezburger', 1],
+        ],
+        columns=['txt', 'lbl']
+    )
+
+
+def test_cross_val():
+    ft_clf = ColLblBasedFtClassifier('txt', epoch=3)
+    ftdf = _big_ftdf()
+    cross_val_score(
+        ft_clf, X=ftdf[['txt']], y=ftdf['lbl'], cv=2, scoring='accuracy')
+
+    ft_clf = IdxBasedFtClassifier(0, epoch=3)
+    ftdf = _big_ftdf()
+    cross_val_score(
+        ft_clf, X=ftdf[['txt']], y=ftdf['lbl'], cv=2, scoring='accuracy')
+
+    ft_clf = FirstColFtClassifier(epoch=3)
+    ftdf = _big_ftdf()
+    cross_val_score(
+        ft_clf, X=ftdf[['txt']], y=ftdf['lbl'], cv=2, scoring='accuracy')
