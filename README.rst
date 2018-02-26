@@ -1,6 +1,11 @@
-skift
-######
+skift |skift_icon|
+##################
 |PyPI-Status| |PyPI-Versions| |Build-Status| |Codecov| |LICENCE|
+
+.. |skift_icon| image:: https://github.com/shaypal5/skift/blob/9a45e4cb4a7983dc052a2d3d1ca977804e6533ea/skift.png 
+   :height: 32
+   :width: 32 px
+   :scale: 100 %
 
 ``scikit-learn`` wrappers for Python ``fastText``.
 
