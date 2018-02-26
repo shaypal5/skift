@@ -2,7 +2,7 @@ skift |skift_icon|
 ##################
 |PyPI-Status| |PyPI-Versions| |Build-Status| |Codecov| |LICENCE|
 
-.. |skift_icon| image:: https://github.com/shaypal5/skift/blob/9a45e4cb4a7983dc052a2d3d1ca977804e6533ea/skift.png 
+.. |skift_icon| image:: https://github.com/shaypal5/skift/blob/69cb01aff7a8f30f76200b84049f0c4f13ab6785/skift.png 
    :height: 32
    :width: 32 px
    :scale: 100 %
