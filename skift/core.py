@@ -156,10 +156,10 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         y : array of int of shape = [n_samples]
             Predicted labels for the given inpurt samples.
         """
-        return [
+        return np.array([
             self._clean_label(res[0][0])
             for res in self._predict(X)
-        ]
+        ], dtype=np.float_)
 
     def _format_probas(self, result):
         lbl_prob_pairs = zip(result[0], result[1])
@@ -181,10 +181,10 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             The class probabilities of the input samples. The order of the
             classes corresponds to that in the attribute classes_.
         """
-        return [
+        return np.array([
             self._format_probas(res)
             for res in self._predict(X, self.num_classes_)
-        ]
+        ], dtype=np.float_)
 
 
 class FirstColFtClassifier(FtClassifierABC):
