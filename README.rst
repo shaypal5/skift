@@ -44,7 +44,7 @@ To install the version of ``fasttext`` (and its official Python bindings) which 
   pip install git+https://github.com/facebookresearch/fastText.git@ca8c5face7d5f3a64fff0e4dfaf58d60a691cb7c
 
 
-Additionally, the official Python bindings prevent the ``pretrainedVectors`` argument from being forwarded from the Python interface to the library itself. A simple one-line change can enable this forwarding again, but if cannot be bothered about cloning the whole repository yourself just to change this line, you can install my fork of the ``fasttext`` repository which fixes this (this is the only change done in this fork, and it is kept up to date). Thus, to install my simple fork of ``fasttext``, run: 
+Additionally, the official Python bindings prevent the ``pretrainedVectors`` argument from being forwarded from the Python interface to the library itself. A simple one-line change can enable this forwarding again, but if you cannot be bothered cloning the entire repository just to change this one line, you can install my fork of the ``fasttext`` repository which fixes this (this is the only change done in this fork, and it is kept up to date). Thus, to install my simple fork of ``fasttext``, run: 
 
 .. code-block:: bash
 
