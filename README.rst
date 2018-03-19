@@ -105,7 +105,7 @@ These wrappers do not make additional assumptions on input besides those commonl
 pandas-dependent wrappers
 -------------------------
 
-These wrappers assume the ``X`` parameters given to ``fit``, ``predict``, and ``predict_proba`` methods is a ``pandas.DataFrame`` object:
+These wrappers assume the ``X`` parameter given to ``fit``, ``predict``, and ``predict_proba`` methods is a ``pandas.DataFrame`` object:
 
 * ``FirstObjFtClassifier`` - An sklearn adapter for fasttext using the first column of ``dtype == object`` as input.
 
