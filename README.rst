@@ -192,8 +192,10 @@ Created by Shay Palachy (shay.palachy@gmail.com).
 .. |Build-Status| image:: https://travis-ci.org/shaypal5/skift.svg?branch=master
   :target: https://travis-ci.org/shaypal5/skift
 
-.. |LICENCE| image:: https://img.shields.io/github/license/shaypal5/skift.svg
+.. |LICENCE| image:: https://github.com/shaypal5/skift/blob/master/mit_license_badge.svg
   :target: https://github.com/shaypal5/skift/blob/master/LICENSE
+  
+.. https://img.shields.io/github/license/shaypal5/skift.svg
 
 .. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
    :target: https://codecov.io/github/shaypal5/skift?branch=master
