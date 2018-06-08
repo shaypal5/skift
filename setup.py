@@ -38,6 +38,7 @@ setuptools.setup(
     author="Shay Palachy",
     author_email="shay.palachy@gmail.com",
     name='skift',
+    license="MIT",
     description='scikit-learn wrappers for Python fastText',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
