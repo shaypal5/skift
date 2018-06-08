@@ -101,3 +101,6 @@ tags
 .pytest-cache/
 .pytest-cache/*
 .pytest*
+
+# osx
+.DS_Store
