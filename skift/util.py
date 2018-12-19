@@ -7,10 +7,21 @@ from fastText import load_model
 
 
 def get_temp_dir_name():
+    """
+    Get the temp directory name from the SKIFT_TEMP_DIR environment variable, or
+    create the directory in the system temp folder
+
+    :return:
+    """
     # Create a static variable/singleton for the temp directory name
     if 'dir_name' not in get_temp_dir_name.__dict__:
-        import tempfile
-        get_temp_dir_name.dir_name = tempfile.mkdtemp()
+        env_name = os.getenv("SKIFT_TEMP_DIR", False)
+        if env_name:
+            os.makedirs(env_name, exist_ok=True)
+            get_temp_dir_name.dir_name = env_name
+        else:
+            import tempfile
+            get_temp_dir_name.dir_name = tempfile.mkdtemp()
     return get_temp_dir_name.dir_name
 
 def temp_dataset_fpath():
