@@ -5,14 +5,19 @@ from random import randint
 
 from fastText import load_model
 
+# Only create the temp directory if it is needed
+TEMP_DIR = None
 
-TEMP_DIR = os.path.expanduser('~/.temp')
-os.makedirs(TEMP_DIR, exist_ok=True)
-
+def get_temp_dir_name():
+    # Create the temp dir if it doesn't exist
+    if not TEMP_DIR:
+        import tempfile
+        TEMP_DIR = tempfile.mkdtemp()
+    return TEMP_DIR
 
 def temp_dataset_fpath():
     temp_fname = 'temp_ft_trainset_{}.ft'.format(randint(1, 99999))
-    return os.path.join(TEMP_DIR, temp_fname)
+    return os.path.join(get_temp_dir_name(), temp_fname)
 
 
 # def dump_df_to_fasttext_format(df, filepath, label_field, text_field):
@@ -54,7 +59,7 @@ def dump_xy_to_fasttext_format(X, y, filepath):
 
 def temp_model_fpath():
     temp_fname = 'temp_ft_model_{}.ft'.format(randint(1, 99999))
-    return os.path.join(TEMP_DIR, temp_fname)
+    return os.path.join(get_temp_dir_name(), temp_fname)
 
 
 def python_fasttext_model_to_bytes(model):
