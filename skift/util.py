@@ -5,15 +5,13 @@ from random import randint
 
 from fastText import load_model
 
-# Only create the temp directory if it is needed
-TEMP_DIR = None
 
 def get_temp_dir_name():
-    # Create the temp dir if it doesn't exist
-    if not TEMP_DIR:
+    # Create a static variable/singleton for the temp directory name
+    if 'dir_name' not in get_temp_dir_name.__dict__:
         import tempfile
-        TEMP_DIR = tempfile.mkdtemp()
-    return TEMP_DIR
+        get_temp_dir_name.dir_name = tempfile.mkdtemp()
+    return get_temp_dir_name.dir_name
 
 def temp_dataset_fpath():
     temp_fname = 'temp_ft_trainset_{}.ft'.format(randint(1, 99999))
