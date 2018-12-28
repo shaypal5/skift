@@ -21,6 +21,8 @@ before_install:
   - pip install codecov
 install:
        pip install ".[test]" --process-dependency-links 
-script: pytest
-after_success:
+script:
+  - pytest
   - codecov
+# after_success:
+  # - codecov
