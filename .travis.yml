@@ -2,6 +2,11 @@ language: python
 python:
   - '3.5'
   - '3.6'
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 # env:
 #   - TO_RUN=TESTS
 #   - TO_RUN=BUILD
@@ -21,6 +26,8 @@ before_install:
   - pip install codecov
 install:
        pip install ".[test]" --process-dependency-links 
-script: pytest
-after_success:
+script:
+  - pytest
   - codecov
+# after_success:
+  # - codecov
