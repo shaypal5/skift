@@ -50,15 +50,17 @@ Additionally, the official Python bindings prevent the ``pretrainedVectors`` arg
 
   pip install git+https://github.com/shaypal5/fastText.git@fdbc22b18c44fd223da844f10afdfbaa3e956219
 
-Temporary Storage Location - SKIFT_TEMP_DIR:
 
-Skift uses temporary storage on the filesystem.  By default, this storage is allocated in the system temporary storage location (i.e. /tmp on *nix systems).  To override the temp location, use the SKIFT_TEMP_DIR environment variable:
+Configuration
+=============
+
+Because ``fasttext`` reads input data from files, ``skift`` has to dump the input data into temporary files for ``fasttext`` to use. A dedicated folder is created for those files on the filesystem.  By default, this storage is allocated in the system temporary storage location (i.e. /tmp on *nix systems).  To override this default location, use the ``SKIFT_TEMP_DIR`` environment variable:
 
 .. code-block:: bash
 
   export SKIFT_TEMP_DIR=/path/to/desired/temp/folder
 
-**NOTE:** The directory will be created if it does not exist
+**NOTE:** The directory will be created if it does not already exist.
 
 
 Features
