@@ -194,6 +194,8 @@ Credits
 
 Created by Shay Palachy (shay.palachy@gmail.com).
 
+Fixes: `uniaz<https://github.com/uniaz>`_, `crouffer<https://github.com/crouffer>`_.
+
 
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/skift.svg
   :target: https://pypi.python.org/pypi/skift
