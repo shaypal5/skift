@@ -5,6 +5,8 @@ import pickle
 
 import pytest
 import pandas as pd
+import tempfile
+
 from sklearn.exceptions import NotFittedError
 
 from skift import FirstColFtClassifier
@@ -24,7 +26,7 @@ def test_pickle():
     assert ft_clf.predict([['woof lol']])[0] == 0
     assert ft_clf.predict([['meow lolz']])[0] == 1
 
-    pic_fpath = os.path.expanduser('~/.temp/ttemp_ft_model.ft')
+    fd, pic_fpath = tempfile.mkstemp()
     with open(pic_fpath, 'wb+') as bfile:
         pickle.dump(ft_clf, bfile)
     with open(pic_fpath, 'rb') as bfile:
@@ -37,6 +39,10 @@ def test_pickle():
     assert ft_clf2.predict([['woof lol']])[0] == 0
     assert ft_clf2.predict([['meow lolz']])[0] == 1
 
+    # Clean up
+    os.close(fd)    # Prevent a file-handle leak
+    os.unlink(pic_fpath)
+
 
 def test_pickle_unfitted():
     ftdf = pd.DataFrame(
@@ -45,7 +51,8 @@ def test_pickle_unfitted():
     )
     ft_clf = FirstColFtClassifier()
 
-    pic_fpath = os.path.expanduser('~/.temp/ttemp_ft_model.ft')
+    fd, pic_fpath = tempfile.mkstemp()
+
     with open(pic_fpath, 'wb+') as bfile:
         pickle.dump(ft_clf, bfile)
     with open(pic_fpath, 'rb') as bfile:
@@ -71,3 +78,7 @@ def test_pickle_unfitted():
     assert ft_clf2.predict([['meow']])[0] == 1
     assert ft_clf2.predict([['woof lol']])[0] == 0
     assert ft_clf2.predict([['meow lolz']])[0] == 1
+
+    # Clean up
+    os.close(fd)    # Prevent a file-handle leak
+    os.unlink(pic_fpath)
