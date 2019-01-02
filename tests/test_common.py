@@ -132,3 +132,52 @@ def test_cross_val():
     ftdf = _big_ftdf()
     cross_val_score(
         ft_clf, X=ftdf[['txt']], y=ftdf['lbl'], cv=2, scoring='accuracy')
+
+
+def test_get_temp_dir_from_tempfile():
+    from skift.util import get_temp_dir_name, SKIFT_TEMP_DIR_ENV_VAR
+    import os
+    import shutil
+
+    try:
+        # Clear the Skift temp dir environment variable to prepare for the test
+        env_var = os.environ[SKIFT_TEMP_DIR_ENV_VAR]
+        del os.environ[SKIFT_TEMP_DIR_ENV_VAR]
+    except KeyError:
+        env_var = None
+
+    tempdir = get_temp_dir_name()
+    assert os.path.isdir(tempdir)
+
+    if env_var:
+        os.environ[SKIFT_TEMP_DIR_ENV_VAR] = env_var
+
+    shutil.rmtree(tempdir)
+
+
+def test_get_temp_dir_environment():
+    from skift.util import get_temp_dir_name, SKIFT_TEMP_DIR_ENV_VAR
+    import os
+    import shutil
+    import tempfile
+
+    try:
+        # Save the existing Skift temp dir env var
+        env_var = os.environ[SKIFT_TEMP_DIR_ENV_VAR]
+        del os.environ[SKIFT_TEMP_DIR_ENV_VAR]
+    except KeyError:
+        env_var = None
+
+    # Create a temporary directory for the test
+    test_tempdir = tempfile.mkdtemp()
+    os.environ[SKIFT_TEMP_DIR_ENV_VAR] = test_tempdir
+
+    # Should use the temp dir from the environment variable
+    assert test_tempdir == get_temp_dir_name()
+
+    if env_var:
+        os.environ[SKIFT_TEMP_DIR_ENV_VAR] = env_var
+    else:
+        del os.environ[SKIFT_TEMP_DIR_ENV_VAR]
+
+    shutil.rmtree(test_tempdir)

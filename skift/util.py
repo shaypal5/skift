@@ -5,6 +5,8 @@ from random import randint
 
 from fastText import load_model
 
+SKIFT_TEMP_DIR_ENV_VAR = "SKIFT_TEMP_DIR"
+
 
 def get_temp_dir_name():
     """
@@ -14,8 +16,9 @@ def get_temp_dir_name():
     :return:
     """
     # Create a static variable/singleton for the temp directory name
-    if 'dir_name' not in get_temp_dir_name.__dict__:
-        env_name = os.getenv("SKIFT_TEMP_DIR", False)
+    if 'dir_name' not in get_temp_dir_name.__dict__ or \
+            not os.path.isdir(get_temp_dir_name.dir_name):
+        env_name = os.getenv(SKIFT_TEMP_DIR_ENV_VAR, False)
         if env_name:
             os.makedirs(env_name, exist_ok=True)
             get_temp_dir_name.dir_name = env_name
@@ -23,6 +26,7 @@ def get_temp_dir_name():
             import tempfile
             get_temp_dir_name.dir_name = tempfile.mkdtemp()
     return get_temp_dir_name.dir_name
+
 
 def temp_dataset_fpath():
     temp_fname = 'temp_ft_trainset_{}.ft'.format(randint(1, 99999))

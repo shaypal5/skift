@@ -5,6 +5,7 @@ omit =
     skift/scripts/*
     skift/_version.py
     */__init__.py
+    venv/*
 [report]
 show_missing = True
 # Regexes for lines to exclude from consideration
