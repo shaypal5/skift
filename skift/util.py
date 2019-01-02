@@ -5,14 +5,32 @@ from random import randint
 
 from fastText import load_model
 
+SKIFT_TEMP_DIR_ENV_VAR = "SKIFT_TEMP_DIR"
 
-TEMP_DIR = os.path.expanduser('~/.temp')
-os.makedirs(TEMP_DIR, exist_ok=True)
+
+def get_temp_dir_name():
+    """
+    Get the temp directory name from the SKIFT_TEMP_DIR environment variable, or
+    create the directory in the system temp folder
+
+    :return:
+    """
+    # Create a static variable/singleton for the temp directory name
+    if 'dir_name' not in get_temp_dir_name.__dict__ or \
+            not os.path.isdir(get_temp_dir_name.dir_name):
+        env_name = os.getenv(SKIFT_TEMP_DIR_ENV_VAR, False)
+        if env_name:
+            os.makedirs(env_name, exist_ok=True)
+            get_temp_dir_name.dir_name = env_name
+        else:
+            import tempfile
+            get_temp_dir_name.dir_name = tempfile.mkdtemp()
+    return get_temp_dir_name.dir_name
 
 
 def temp_dataset_fpath():
     temp_fname = 'temp_ft_trainset_{}.ft'.format(randint(1, 99999))
-    return os.path.join(TEMP_DIR, temp_fname)
+    return os.path.join(get_temp_dir_name(), temp_fname)
 
 
 # def dump_df_to_fasttext_format(df, filepath, label_field, text_field):
@@ -54,7 +72,7 @@ def dump_xy_to_fasttext_format(X, y, filepath):
 
 def temp_model_fpath():
     temp_fname = 'temp_ft_model_{}.ft'.format(randint(1, 99999))
-    return os.path.join(TEMP_DIR, temp_fname)
+    return os.path.join(get_temp_dir_name(), temp_fname)
 
 
 def python_fasttext_model_to_bytes(model):
