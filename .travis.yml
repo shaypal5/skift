@@ -28,7 +28,7 @@ before_install:
   - pip install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
   - pip install codecov
 install:
-       pip install ".[test]" --process-dependency-links 
+       pip install ".[test]" 
 script:
   - pytest
   - codecov
