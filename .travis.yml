@@ -22,6 +22,8 @@ before_install:
   # - pip install .
   # - cd ..
   # - pip install scikit-learn
+  - pip install -U pip
+  - pip install -U pytest
   - pip install git+https://github.com/facebookresearch/fastText.git@ca8c5face7d5f3a64fff0e4dfaf58d60a691cb7c
   - pip install codecov
 install:
