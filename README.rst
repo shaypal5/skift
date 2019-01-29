@@ -37,11 +37,11 @@ Dependencies:
 
 **NOTE:** Installing ``skift`` will not install ``fasttext`` itself, as a `the official Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_ are not currently maintaned on PyPI. 
 
-To install the version of ``fasttext`` (and its official Python bindings) which ``skift`` is tested against, run: 
+To install the version of ``fasttext`` (and its official Python bindings) which ``skift`` is tested against (which is the latest one, as of Januray 29th, 2019), run: 
 
 .. code-block:: bash
 
-  pip install git+https://github.com/facebookresearch/fastText.git@ca8c5face7d5f3a64fff0e4dfaf58d60a691cb7c
+   pip install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
 
 
 Additionally, the official Python bindings prevent the ``pretrainedVectors`` argument from being forwarded from the Python interface to the library itself. A simple one-line change can enable this forwarding again, but if you cannot be bothered cloning the entire repository just to change this one line, you can install my fork of the ``fasttext`` repository which fixes this (this is the only change done in this fork, and it is kept up to date). Thus, to install my simple fork of ``fasttext``, run: 
