@@ -1,6 +1,6 @@
 skift |skift_icon|
 ##################
-|PyPI-Status| |PyPI-Versions| |Build-Status| |Codecov| |LICENCE|
+|PyPI-Status| |Downloads| |PyPI-Versions| |Build-Status| |Codecov| |Codefactor| |LICENCE|
 
 .. |skift_icon| image:: https://github.com/shaypal5/skift/blob/be1f8e84d311f926fd39e8ea421525782b4cb39f/skift.png 
 
@@ -213,3 +213,11 @@ Fixes: `uniaz<https://github.com/uniaz>`_, `crouffer<https://github.com/crouffer
 
 .. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
    :target: https://codecov.io/github/shaypal5/skift?branch=master
+
+.. |Downloads| image:: https://pepy.tech/badge/skift
+     :target: https://pepy.tech/project/skift
+     :alt: PePy stats
+     
+.. |Codefactor| image:: https://www.codefactor.io/repository/github/shaypal5/skift/badge?style=plastic
+     :target: https://www.codefactor.io/repository/github/shaypal5/skift
+     :alt: Codefactor code quality
