@@ -44,6 +44,7 @@ before_install:
 install:
   pip3 install ".[test]" 
 script:
+  - pip3 list
   - python3 -m pytest
   - python3 -m codecov
 # after_success:
