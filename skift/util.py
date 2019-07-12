@@ -3,15 +3,15 @@
 import os
 from random import randint
 
-from fastText import load_model
+from fasttext import load_model
 
 SKIFT_TEMP_DIR_ENV_VAR = "SKIFT_TEMP_DIR"
 
 
 def get_temp_dir_name():
     """
-    Get the temp directory name from the SKIFT_TEMP_DIR environment variable, or
-    create the directory in the system temp folder
+    Get the temp directory name from the SKIFT_TEMP_DIR environment variable,
+    or create the directory in the system temp folder
 
     :return:
     """

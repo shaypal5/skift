@@ -7,16 +7,6 @@ matrix:
     - python: 3.7
       dist: xenial
       sudo: true
-    - os: linux
-      name: PEP8 MyPy Coverage
-      python: 3.7
-      install: pip install -e .[tests,cov]
-      script:
-        - flake8
-        - mypy .
-        - pytest --cov
-      after_success:
-        - coveralls
     - os: osx
       language: minimal
       install: pip3 install -e .[tests]
@@ -40,13 +30,13 @@ before_install:
   # - pip install .
   # - cd ..
   # - pip install scikit-learn
-  - pip install -U pip
-  - pip install -U pytest
+  - pip3 install -U pip
+  - pip3 install -U pytest
   # - pip install git+https://github.com/facebookresearch/fastText.git@ca8c5face7d5f3a64fff0e4dfaf58d60a691cb7c
-  - pip install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
-  - pip install codecov
+  # - pip3 install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
+  - pip3 install codecov
 install:
-       pip install ".[test]" 
+  pip3 install ".[test]" 
 script:
   - pytest
   - codecov

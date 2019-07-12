@@ -28,28 +28,12 @@ Dependencies:
 * ``numpy``
 * ``scipy``
 * ``scikit-learn``
-* ``fastText`` Python package
+* The ``fasttext`` Python package
 
 .. code-block:: bash
 
   pip install skift
   
-
-**NOTE:** Installing ``skift`` will not install ``fasttext`` itself, as a `the official Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_ are not currently maintaned on PyPI. 
-
-To install the version of ``fasttext`` (and its official Python bindings) which ``skift`` is tested against (which is the latest one, as of Januray 29th, 2019), run: 
-
-.. code-block:: bash
-
-   pip install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
-
-
-Additionally, the official Python bindings prevent the ``pretrainedVectors`` argument from being forwarded from the Python interface to the library itself. A simple one-line change can enable this forwarding again, but if you cannot be bothered cloning the entire repository just to change this one line, you can install my fork of the ``fasttext`` repository which fixes this (this is the only change done in this fork, and it is kept up to date). Thus, to install my simple fork of ``fasttext``, run: 
-
-.. code-block:: bash
-
-  pip install git+https://github.com/shaypal5/fastText.git@fdbc22b18c44fd223da844f10afdfbaa3e956219
-
 
 Configuration
 =============
@@ -70,7 +54,7 @@ Features
 * Also caters to the common use case of ``pandas.DataFrame`` inputs.
 * Enables easy stacking of ``fastText`` with other types of ``scikit-learn``-compliant classifiers.
 * Pickle-able classifier objects.
-* Built around the `official fasttext Python bindings <https://github.com/facebookresearch/fastText/tree/master/python>`_.
+* Built around the `official fasttext Python package <https://github.com/facebookresearch/fastText/tree/master/python>`_.
 * Pure python.
 * Supports Python 3.5+.
 * Fully tested.
@@ -81,7 +65,7 @@ Wrappers
 
 ``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features. 
 
-``skift`` includes several ``scikit-learn``-compatible wrappers (for the `official <https://github.com/facebookresearch/fastText/tree/master/python>`_ ``fastText`` Python bindings) which cater to these use cases.
+``skift`` includes several ``scikit-learn``-compatible wrappers (for the `official <https://github.com/facebookresearch/fastText/tree/master/python>`_ ``fastText`` Python package) which cater to these use cases.
 
 **NOTICE:** Any additional keyword arguments provided to the classifier constructor, besides those required, will be forwarded to the ``fastText.train_supervised`` method on every call to ``fit``.
 
