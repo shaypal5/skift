@@ -5,7 +5,7 @@ import os
 import abc
 
 import numpy as np
-from fastText import train_supervised
+from fasttext import train_supervised
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.multiclass import unique_labels
 from sklearn.exceptions import NotFittedError
