@@ -11,10 +11,12 @@ matrix:
       language: minimal
       install: pip3 install -e .[tests]
     - os: windows
-      language: minimal
+      language: shell
       before_install:
         - choco install python3
         - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - python3 -m pip install --upgrade pip
+      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 # env:
 #   - TO_RUN=TESTS
 #   - TO_RUN=BUILD
@@ -38,7 +40,7 @@ before_install:
 install:
   pip3 install ".[test]" 
 script:
-  - pytest
+  - python3 -m pytest
   - codecov
 # after_success:
   # - codecov
