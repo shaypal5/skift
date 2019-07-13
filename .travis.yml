@@ -27,8 +27,8 @@ matrix:
       script: 
         - python -m pytest
         - python -m codecov
-  allow_failures:
-    - os: windows
+  # allow_failures:
+  #   - os: windows
 # env:
 #   - TO_RUN=TESTS
 #   - TO_RUN=BUILD
