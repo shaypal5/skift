@@ -38,7 +38,7 @@ Dependencies:
 Configuration
 =============
 
-Because ``fasttext`` reads input data from files, ``skift`` has to dump the input data into temporary files for ``fasttext`` to use. A dedicated folder is created for those files on the filesystem.  By default, this storage is allocated in the system temporary storage location (i.e. /tmp on *nix systems).  To override this default location, use the ``SKIFT_TEMP_DIR`` environment variable:
+Because ``fasttext`` reads input data from files, ``skift`` has to dump the input data into temporary files for ``fasttext`` to use. A dedicated folder is created for those files on the filesystem.  By default, this storage is allocated in the system temporary storage location (i.e. /tmp on \*nix systems).  To override this default location, use the ``SKIFT_TEMP_DIR`` environment variable:
 
 .. code-block:: bash
 
@@ -178,7 +178,7 @@ Credits
 
 Created by Shay Palachy (shay.palachy@gmail.com).
 
-Fixes: `uniaz<https://github.com/uniaz>`_, `crouffer<https://github.com/crouffer>`_.
+Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouffer>`_.
 
 
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/skift.svg
