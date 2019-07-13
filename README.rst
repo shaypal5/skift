@@ -57,7 +57,7 @@ Features
 * Built around the `official fasttext Python package <https://github.com/facebookresearch/fastText/tree/master/python>`_.
 * Pure python.
 * Supports Python 3.5+.
-* Fully tested.
+* Fully tested on Linux, OSX and Windows operating systems.
 
 
 Wrappers
