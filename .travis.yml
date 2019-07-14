@@ -6,8 +6,8 @@ python:
   - "3.7-dev"
 matrix:
   fast_finish: true
-  include:
 	# ====== Linux =======
+  include:
     - python: 3.7
       dist: xenial
       # sudo: true  # blah
