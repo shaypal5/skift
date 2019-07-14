@@ -41,6 +41,7 @@ matrix:
         - python -m pip install --upgrade pip
         - pip install --upgrade pytest
         - pip install codecov
+      install: pip install -e ".[test]"
       env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
     - name: "Python 3.5.4 on Windows"
       os: windows           # Windows 10.0.17134 N/A Build 17134
@@ -93,8 +94,8 @@ before_install:
   # - pip3 install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
   - pip3 install codecov
 install:
-  # - pip3 install ".[test]" 
-  - if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then pip install ".[test]"; else pip3 install ".[test]"; fi
+  - pip3 install ".[test]" 
+  # - if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then pip install ".[test]"; else pip3 install ".[test]"; fi
 script:
   - python -m pytest
   - python -m codecov
