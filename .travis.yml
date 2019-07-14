@@ -2,6 +2,8 @@ language: python
 python:
   - 3.5
   - 3.6
+  - "3.6-dev"
+  - "3.7-dev"
 matrix:
   fast_finish: true
   include:
@@ -85,7 +87,7 @@ before_install:
 install:
   - pip3 install ".[test]" 
 script:
-  - python -m pytest
-  - python -m codecov
+  - pytest
+  - codecov
 # after_success:
   # - codecov
