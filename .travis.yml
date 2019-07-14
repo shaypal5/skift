@@ -9,20 +9,6 @@ matrix:
       dist: xenial
       sudo: true
     # ======= OSX ========
-    - name: "Python 2.7.14 on macOS 10.13"
-      os: osx
-      osx_image: xcode9.3  # Python 2.7.14_2 running on macOS 10.13
-      language: shell       # 'language: python' is an error on Travis CI macOS
-      # sudo: true
-      before_install:
-        - python --version
-        # - pip install -U pip
-        # - python -m pip install --upgrade pip
-        - pip install pytest --user
-        - pip install codecov --user
-      install: pip install ".[test]" --user
-      script: python -m pytest
-      after_success: python  -m codecov
     - name: "Python 3.6.5 on macOS 10.13"
       os: osx
       osx_image: xcode9.4  # Python 3.6.5 running on macOS 10.13
@@ -107,10 +93,10 @@ before_install:
   # - pip3 install git+git://github.com/facebookresearch/fastText.git@0a5759475265705b485fa9fae4d1186d248049aa
   - pip3 install codecov
 install:
-  pip3 install ".[test]" 
+  # - pip3 install ".[test]" 
+  - if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then pip install ".[test]"; else pip3 install ".[test]"; fi
 script:
-  - pip3 list
-  - python3 -m pytest
-  - python3 -m codecov
+  - python -m pytest
+  - python -m codecov
 # after_success:
   # - codecov
