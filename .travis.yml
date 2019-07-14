@@ -4,15 +4,15 @@ python:
   - 3.6
   - "3.6-dev"
   - "3.7-dev"
-  - "3.8-dev"
-  - "pypy"
-  - "pypy3"
 matrix:
   fast_finish: true
   include:
+	# ====== Linux =======
     - python: 3.7
       dist: xenial
-      sudo: true
+      # sudo: true
+    - python: "3.8-dev"
+	  dist: xenial
     # ======= OSX ========
     - name: "Python 3.6.5 on macOS 10.13"
       os: osx
