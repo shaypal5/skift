@@ -14,8 +14,8 @@ matrix:
     - python: "3.8-dev"
   include: 
     # ======= OSX ========
-	- name: "Generic osx Python 3.5"
-	  os: osx
+    - name: "Generic osx Python 3.5"
+      os: osx
       language: shell
       python: 3.5
     - name: "Python 3.6.5 on macOS 10.13"
