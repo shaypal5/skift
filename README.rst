@@ -205,3 +205,5 @@ Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouff
 .. |Codefactor| image:: https://www.codefactor.io/repository/github/shaypal5/skift/badge?style=plastic
      :target: https://www.codefactor.io/repository/github/shaypal5/skift
      :alt: Codefactor code quality
+
+.. Trigerring Travis builds
