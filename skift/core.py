@@ -141,7 +141,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         self._validate_x(X)
         input_col = self._input_col(X)
 
-        return [self.model.predict(text, k) for text in input_col]
+        return (self.model.predict(text, k) for text in input_col)
 
     def predict(self, X):
         """Predict labels.
