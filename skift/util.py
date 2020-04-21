@@ -65,7 +65,7 @@ def dump_xy_to_fasttext_format(X, y, filepath):
     filepath : str
         The fully qualified path to the file to dump.
     """
-    with open(filepath, 'w+') as wfile:
+    with open(filepath, 'w+', encoding='utf-8') as wfile:
         for text, label in zip(X, y):
             wfile.write('__label__{} {}\n'.format(label, text))
 
