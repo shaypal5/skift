@@ -178,7 +178,7 @@ Credits
 
 Created by Shay Palachy (shay.palachy@gmail.com).
 
-Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouffer>`_ and `amirzamli <https://github.com/amirzamli>`_.
+Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouffer>`_, `amirzamli <https://github.com/amirzamli>`_ and `sgt <https://github.com/sgt>`_.
 
 
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/skift.svg
