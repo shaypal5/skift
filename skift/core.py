@@ -186,6 +186,19 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             for res in self._predict(X, self.num_classes_)
         ], dtype=np.float_)
 
+    def quantize(self, **kwargs):
+        """Quantize the model reducing its size and memory footprint.
+
+        Accepts and forwards all keyword arguments defined by Python fasttext's
+        ``model.quantize`` method. See Python fasttext docymentation:
+        https://github.com/facebookresearch/fastText/tree/master/python#model-object
+        """
+        self.model.quantize(**kwargs)
+
+    def is_quantized(self):
+        """Return true if the inner fasttext model is quantized, else False."""
+        return self.model.is_quantized()
+
 
 class FirstColFtClassifier(FtClassifierABC):
     """An sklearn classifier adapter for fasttext using the first column.

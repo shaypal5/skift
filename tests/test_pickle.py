@@ -12,13 +12,19 @@ from sklearn.exceptions import NotFittedError
 from skift import FirstColFtClassifier
 
 
-def test_pickle():
+@pytest.mark.parametrize("quantize", [True, False])
+def test_pickle(quantize):
     ftdf = pd.DataFrame(
         data=[['woof woof', 0], ['meow meow', 1]],
         columns=['txt', 'lbl']
     )
     ft_clf = FirstColFtClassifier()
     ft_clf.fit(ftdf[['txt']], ftdf['lbl'])
+    if quantize:
+        with pytest.raises(ValueError):
+            ft_clf.quantize(cutoff=1)
+        assert not ft_clf.is_quantized()
+        return
 
     assert ft_clf.predict([['woof woof']])[0] == 0
     assert ft_clf.predict([['meow meow']])[0] == 1
@@ -38,6 +44,9 @@ def test_pickle():
     assert ft_clf2.predict([['meow']])[0] == 1
     assert ft_clf2.predict([['woof lol']])[0] == 0
     assert ft_clf2.predict([['meow lolz']])[0] == 1
+
+    if quantize:
+        assert not ft_clf2.is_quantized()
 
     # Clean up
     os.close(fd)    # Prevent a file-handle leak
