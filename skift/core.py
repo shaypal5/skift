@@ -6,6 +6,7 @@ import abc
 
 import numpy as np
 from fasttext import train_supervised
+# from fasttext.FastText import unsupervised_default
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.multiclass import unique_labels
 from sklearn.exceptions import NotFittedError
@@ -49,6 +50,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
 
     def get_params(self, deep=True):
         """Get parameters for this estimator.
+
         Parameters
         ----------
         deep : boolean, optional
@@ -60,6 +62,9 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             Parameter names mapped to their values.
         """
         # re-implementation that will preserve ft kwargs
+        # if len(self.kwargs) > 1:
+        #     return self.kwargs
+        # return unsupervised_default.copy()
         return self.kwargs
 
     ALLOWED_DTYPES_ = ['<U26', object]
