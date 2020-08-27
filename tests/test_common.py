@@ -50,6 +50,17 @@ def test_predict_proba():
     assert res[1] > res[0]
 
 
+def test_predict_proba_on_str_arr():
+    ftdf = _ftdf()
+    ft_clf = FirstColFtClassifier()
+    ft_clf.fit(ftdf[['txt']], ftdf['lbl'])
+
+    res = ft_clf.predict_proba_on_str_arr(['woof woof'])[0]
+    assert res[0] > res[1]
+    res = ft_clf.predict_proba_on_str_arr(['meow meow'])[0]
+    assert res[1] > res[0]
+
+
 def test_idx_based():
     ftdf = _ftdf()
     ft_clf = IdxBasedFtClassifier(0)

@@ -136,6 +136,9 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
     def _clean_label(ft_label):
         return int(ft_label[9:])
 
+    def _predict_on_str_arr(self, str_arr, k=1):
+        return (self.model.predict(text, k) for text in str_arr)
+
     def _predict(self, X, k=1):
         # Ensure that fit had been called
         if self.model is None:
@@ -144,9 +147,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
 
         # Input validation{
         self._validate_x(X)
-        input_col = self._input_col(X)
-
-        return (self.model.predict(text, k) for text in input_col)
+        return self._predict_on_str_arr(self._input_col(X), k=k)
 
     def predict(self, X):
         """Predict labels.
@@ -159,7 +160,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         Returns
         -------
         y : array of int of shape = [n_samples]
-            Predicted labels for the given inpurt samples.
+            Predicted labels for the given input samples.
         """
         return np.array([
             self._clean_label(res[0][0])
@@ -189,6 +190,44 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         return np.array([
             self._format_probas(res)
             for res in self._predict(X, self.num_classes_)
+        ], dtype=np.float_)
+
+    def predict_proba_on_str_arr(self, X):
+        """Predict class probabilities for X, an array of strings.
+
+        This is mainly meant to enable easy use of fitted classifier objects
+        with the lime ML interpretability package.
+
+        Parameters
+        ----------
+        X : array-like of shape = [n_sammples]
+            The input samples, each one a string object.
+
+        Returns
+        -------
+        p : array of shape = [n_samples, n_classes]
+            The class probabilities of the input samples. The order of the
+            classes corresponds to that in the attribute classes_.
+
+        Example
+        -------
+        >>> data = [['woof', 0],['meow meow', 1]]
+        >>> import pandas as pd;
+        >>> df = pd.DataFrame(data=data, columns=['txt', 'lbl'])
+        >>> from skift import FirstColFtClassifier;
+        >>> clf = FirstColFtClassifier(lr=0.3, epoch=10)
+        >>> clf.fit(df[['txt']], df['lbl']);
+        FirstColFtClassifier(epoch=10, lr=0.3)
+        >>> clf.predict([['meow meow meow']])
+        array([1.])
+        >>> from lime.lime_text import LimeTextExplainer;
+        >>> explainer = LimeTextExplainer(bow=False)
+        >>> exp = explainer.explain_instance(
+        ...     'meow', classifier_fn=clf.predict_proba_on_str_arr);
+        """
+        return np.array([
+            self._format_probas(res)
+            for res in self._predict_on_str_arr(X, k=self.num_classes_)
         ], dtype=np.float_)
 
     def quantize(self, **kwargs):
