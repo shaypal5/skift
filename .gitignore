@@ -104,3 +104,4 @@ tags
 
 # osx
 .DS_Store
+.pytest_cache/
