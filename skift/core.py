@@ -5,6 +5,7 @@ import os
 import abc
 
 import numpy as np
+import pandas as pd
 from fasttext import train_supervised
 # from fasttext.FastText import unsupervised_default
 from sklearn.base import BaseEstimator, ClassifierMixin
@@ -113,6 +114,11 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         # Check that X and y have correct shape
         self._validate_x(X)
         y = self._validate_y(y)
+        input_col = self._input_col(X)
+
+        return self._fit_input_col(input_col, y)
+
+    def _fit_input_col(self, input_col, y):
         # Store the classes seen during fit
         self.classes_ = unique_labels(y)
         self.num_classes_ = len(self.classes_)
@@ -120,7 +126,6 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             '__label__{}'.format(lbl) for lbl in self.classes_]
         # Dump training set to a fasttext-compatible file
         temp_trainset_fpath = temp_dataset_fpath()
-        input_col = self._input_col(X)
         dump_xy_to_fasttext_format(input_col, y, temp_trainset_fpath)
         # train
         self.model = train_supervised(
@@ -130,6 +135,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             os.remove(temp_trainset_fpath)
         except FileNotFoundError:  # pragma: no cover
             pass
+
         return self
 
     @staticmethod
@@ -350,3 +356,55 @@ class ColLblBasedFtClassifier(FtClassifierABC):
         """
         # re-implementation that will preserve ft kwargs
         return {'input_col_lbl': self.input_col_lbl, **self.kwargs}
+
+
+class SeriesFtClassifier(FtClassifierABC):
+    """An sklearn classifier adapter for fasttext using the a pandas Series.
+
+    Parameters
+    ----------
+    **kwargs
+        Additional keyword arguments will be redirected to
+        fasttext.train_supervised.
+    """
+    def __init__(self,  **kwargs):
+        super().__init__(**kwargs)
+
+    def _input_col(self, X):
+        pass
+
+    def fit(self, X, y):
+        """Fits the classifier
+
+        Parameters
+        ----------
+        X : pd.Series
+            The training input samples.
+        y : array-like, shape = [n_samples]
+            The target values. An array of int.
+
+        Returns
+        -------
+        self : object
+            Returns self.
+        """
+        # Check that X and y have correct shape
+        if isinstance(X, pd.Series):
+            input_col = X.values
+        else:
+            input_col = X
+        y = self._validate_y(y)
+
+        return self._fit_input_col(input_col, y)
+
+    def _predict(self, X, k=1):
+        # Ensure that fit had been called
+        if self.model is None:
+            raise NotFittedError("This {} instance is not fitted yet.".format(
+                self.__class__.__name__))
+
+        if isinstance(X, pd.Series):
+            input_col = X.values
+        else:
+            input_col = X
+        return self._predict_on_str_arr(input_col, k=k)

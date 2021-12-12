@@ -9,6 +9,7 @@ from skift import (
     IdxBasedFtClassifier,
     ColLblBasedFtClassifier,
     FirstObjFtClassifier,
+    SeriesFtClassifier,
 )
 
 
@@ -25,6 +26,16 @@ def test_bad_shape():
         ft_clf.fit([7], [0])
     with pytest.raises(ValueError):
         ft_clf.fit([[7]], [[0]])
+
+
+def test_series_predict():
+    ftdf = _ftdf()
+    ft_clf = SeriesFtClassifier()
+    ft_clf.fit(ftdf['txt'], ftdf['lbl'])
+
+    preds = ft_clf.predict(ftdf['txt'])
+    assert preds[0] == 0
+    assert preds[1] == 1
 
 
 def test_predict():

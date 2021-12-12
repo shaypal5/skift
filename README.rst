@@ -124,7 +124,15 @@ These wrappers assume the ``X`` parameter given to ``fit``, ``predict``, and ``p
   >>> sk_clf.fit(df[['txt']], df['lbl'])
   >>> sk_clf.predict([['woof']])
   [0]
+* ``SeriesFtClassifier`` - An sklearn adapter for fasttext taking a Pandas Series as input.
 
+.. code-block:: python
+  >>> from skift import SeriesFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = SeriesFtClassifier(input_col_lbl='txt', epoch=8)
+  >>> sk_clf.fit(df['txt'], df['lbl'])
+  >>> sk_clf.predict(['woof'])
+  >>> sk_clf.predict(df['txt'])
 Contributing
 ============
 
