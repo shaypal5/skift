@@ -5,7 +5,6 @@ import os
 import abc
 
 import numpy as np
-import pandas as pd
 from fasttext import train_supervised
 # from fasttext.FastText import unsupervised_default
 from sklearn.base import BaseEstimator, ClassifierMixin
@@ -389,12 +388,11 @@ class SeriesFtClassifier(FtClassifierABC):
             Returns self.
         """
         # Check that X and y have correct shape
-        if isinstance(X, pd.Series):
+        try:
             input_col = X.values
-        else:
+        except AttributeError:
             input_col = X
         y = self._validate_y(y)
-
         return self._fit_input_col(input_col, y)
 
     def _predict(self, X, k=1):
@@ -402,9 +400,8 @@ class SeriesFtClassifier(FtClassifierABC):
         if self.model is None:
             raise NotFittedError("This {} instance is not fitted yet.".format(
                 self.__class__.__name__))
-
-        if isinstance(X, pd.Series):
+        try:
             input_col = X.values
-        else:
+        except AttributeError:
             input_col = X
         return self._predict_on_str_arr(input_col, k=k)

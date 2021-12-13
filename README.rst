@@ -2,7 +2,7 @@ skift |skift_icon|
 ##################
 |PyPI-Status| |Downloads| |PyPI-Versions| |Build-Status| |Codecov| |Codefactor| |LICENCE|
 
-.. |skift_icon| image:: https://github.com/shaypal5/skift/blob/be1f8e84d311f926fd39e8ea421525782b4cb39f/skift.png 
+.. |skift_icon| image:: https://github.com/shaypal5/skift/blob/be1f8e84d311f926fd39e8ea421525782b4cb39f/skift.png
 
 ``scikit-learn`` wrappers for Python ``fastText``.
 
@@ -33,7 +33,7 @@ Dependencies:
 .. code-block:: bash
 
   pip install skift
-  
+
 
 Configuration
 =============
@@ -63,7 +63,7 @@ Features
 Wrappers
 =========
 
-``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features. 
+``fastText`` works only on text data, which means that it will only use a single column from a dataset which might contain many feature columns of different types. As such, a common use case is to have the ``fastText`` classifier use a single column as input, ignoring other columns. This is especially true when ``fastText`` is to be used as one of several classifiers in a stacking classifier, with other classifiers using non-textual features.
 
 ``skift`` includes several ``scikit-learn``-compatible wrappers (for the `official <https://github.com/facebookresearch/fastText/tree/master/python>`_ ``fastText`` Python package) which cater to these use cases.
 
@@ -124,15 +124,18 @@ These wrappers assume the ``X`` parameter given to ``fit``, ``predict``, and ``p
   >>> sk_clf.fit(df[['txt']], df['lbl'])
   >>> sk_clf.predict([['woof']])
   [0]
+
 * ``SeriesFtClassifier`` - An sklearn adapter for fasttext taking a Pandas Series as input.
 
 .. code-block:: python
+
   >>> from skift import SeriesFtClassifier
   >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
   >>> sk_clf = SeriesFtClassifier(input_col_lbl='txt', epoch=8)
   >>> sk_clf.fit(df['txt'], df['lbl'])
   >>> sk_clf.predict(['woof'])
   >>> sk_clf.predict(df['txt'])
+
 Contributing
 ============
 
@@ -200,7 +203,7 @@ Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouff
 
 .. |LICENCE| image:: https://github.com/shaypal5/skift/blob/master/mit_license_badge.svg
   :target: https://github.com/shaypal5/skift/blob/master/LICENSE
-  
+
 .. https://img.shields.io/github/license/shaypal5/skift.svg
 
 .. |Codecov| image:: https://codecov.io/github/shaypal5/skift/coverage.svg?branch=master
@@ -209,9 +212,8 @@ Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouff
 .. |Downloads| image:: https://pepy.tech/badge/skift
      :target: https://pepy.tech/project/skift
      :alt: PePy stats
-     
+
 .. |Codefactor| image:: https://www.codefactor.io/repository/github/shaypal5/skift/badge?style=plastic
      :target: https://www.codefactor.io/repository/github/shaypal5/skift
      :alt: Codefactor code quality
 
-.. Trigerring Travis builds

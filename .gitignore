@@ -96,6 +96,7 @@ tags
 
 # vim swap files
 *.swp
+.vim
 
 # pytest
 .pytest-cache/
@@ -105,3 +106,6 @@ tags
 # osx
 .DS_Store
 .pytest_cache/
+
+Pipfile
+Pipfile.lock
