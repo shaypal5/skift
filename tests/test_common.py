@@ -20,12 +20,30 @@ def _ftdf():
     )
 
 
+def _ftdf2():
+    return pd.DataFrame(
+        data=[['woof', 0], ['meow', 1]],
+        columns=['txt', 'lbl']
+    )
+
+
 def test_bad_shape():
     ft_clf = FirstColFtClassifier()
     with pytest.raises(ValueError):
         ft_clf.fit([7], [0])
     with pytest.raises(ValueError):
         ft_clf.fit([[7]], [[0]])
+
+
+def test_series_predict_tune():
+    ftdf = _ftdf()
+    ftdf2 = _ftdf2()
+    ft_clf = SeriesFtClassifier(autotuneDuration=5)
+    ft_clf.fit(ftdf['txt'], ftdf['lbl'], X_validation=ftdf2['txt'], y_validation=ftdf2['lbl'])
+
+    preds = ft_clf.predict(ftdf['txt'])
+    assert preds[0] == 0
+    assert preds[1] == 1
 
 
 def test_series_predict():
