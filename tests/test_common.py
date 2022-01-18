@@ -39,7 +39,7 @@ def test_series_predict_tune():
     ftdf = _ftdf()
     ftdf2 = _ftdf2()
     ft_clf = SeriesFtClassifier(autotuneDuration=5)
-    ft_clf.fit(ftdf['txt'], ftdf['lbl'], X_validation=ftdf2['txt'], y_validation=ftdf2['lbl'])
+    ft_clf.fit(ftdf['txt'], ftdf['lbl'], ftdf2['txt'], ftdf2['lbl'])
 
     preds = ft_clf.predict(ftdf['txt'])
     assert preds[0] == 0
