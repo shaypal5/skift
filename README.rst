@@ -136,22 +136,31 @@ These wrappers assume the ``X`` parameter given to ``fit``, ``predict``, and ``p
   >>> sk_clf.predict(['woof'])
   >>> sk_clf.predict(df['txt'])
 
-Hyper-parameter auto-tuning
+Hyperparameter auto-tuning
 ----------------------------
 
-It's possible to pass a validation set to ``fit`` in order to optimize the hyper-parameters.
-The `auto-tune settings <https://fasttext.cc/docs/en/autotune.html>`_ can be passed to the constructor. E.g.,
+It's possible to pass a validation set to ``fit()`` in order to optimize the hyper-parameters.
+
+First, to adjust the `auto-tune settings <https://fasttext.cc/docs/en/autotune.html>`_, the corresponding keyword arguments can be passed to the constructor (if none are passed the default settings are used):
 
 .. code-block:: python
 
   >>> from skift import SeriesFtClassifier
-  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> df_train = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
   >>> df_val = pandas.DataFrame([['woof woof', 0], ['meow meow', 1]], columns=['txt', 'lbl'])
   >>> sk_clf = SeriesFtClassifier(input_col_lbl='txt', epoch=8, autotuneDuration=5)
-  >>> sk_clf.fit(df['txt'], df['lbl'], df2['txt'], df2['lbl'])
-  >>> sk_clf.predict(['woof'])
-  >>> sk_clf.predict(df['txt'])
 
+Then, the validation dataframe (or series, in this case, since we constructed a ``SeriesFtClassifier``) and label column should be provided to the ``fit()`` method:
+
+.. code-block:: python
+
+  >>> sk_clf.fit(df_train['txt'], df_train['lbl'], X_validation=df_val['txt'], y_validation=df_val['lbl'])
+
+Or simply by position:
+
+.. code-block:: python
+
+  >>> sk_clf.fit(df_train['txt'], df_train['lbl'], df_val['txt'], df_val['lbl'])
 
 
 Contributing
