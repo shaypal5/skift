@@ -216,6 +216,10 @@ Credits
 
 Created by Shay Palachy (shay.palachy@gmail.com).
 
+Contributions:
+
+* `Dimid Duchovny <https://github.com/dimidd>_` contributed the ``SeriesFtClassifier`` class and the hyperparameter auto-tuning capability.
+
 Fixes: `uniaz <https://github.com/uniaz>`_, `crouffer <https://github.com/crouffer>`_, `amirzamli <https://github.com/amirzamli>`_ and `sgt <https://github.com/sgt>`_.
 
 
