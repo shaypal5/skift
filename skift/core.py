@@ -125,9 +125,16 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         else:
             input_col_validation = None
 
-        return self._fit_input_col(input_col, y, input_col_validation, y_validation)
+        return self._fit_input_col(
+            input_col, y, input_col_validation, y_validation)
 
-    def _fit_input_col(self, input_col, y, input_col_validation=None, y_validation=None):
+    def _fit_input_col(
+        self,
+        input_col,
+        y,
+        input_col_validation=None,
+        y_validation=None,
+    ):
         # Store the classes seen during fit
         self.classes_ = unique_labels(y)
         self.num_classes_ = len(self.classes_)
@@ -139,12 +146,22 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         if input_col_validation is not None:
             n_classes_validation = len(unique_labels(y_validation))
             assert n_classes_validation == self.num_classes_,\
-                "Number of validation classes doesn't match number of training classes"
+                ("Number of validation classes doesn't match number of "
+                 "training classes")
             temp_trainset_fpath_validation = temp_dataset_fpath()
-            dump_xy_to_fasttext_format(input_col_validation, y_validation, temp_trainset_fpath_validation)
+            dump_xy_to_fasttext_format(
+                input_col_validation,
+                y_validation,
+                temp_trainset_fpath_validation,
+            )
             # train
             self.model = train_supervised(
-                input=temp_trainset_fpath, **{'autotuneValidationFile': temp_trainset_fpath_validation, **self.kwargs})
+                input=temp_trainset_fpath,
+                **{
+                    'autotuneValidationFile': temp_trainset_fpath_validation,
+                    **self.kwargs
+                }
+            )
             try:
                 os.remove(temp_trainset_fpath_validation)
             except FileNotFoundError:  # pragma: no cover
@@ -429,7 +446,8 @@ class SeriesFtClassifier(FtClassifierABC):
             y_validation = self._validate_y(y_validation)
         else:
             input_col_validation = None
-        return self._fit_input_col(input_col, y, input_col_validation, y_validation)
+        return self._fit_input_col(
+            input_col, y, input_col_validation, y_validation)
 
     def _predict(self, X, k=1):
         # Ensure that fit had been called
