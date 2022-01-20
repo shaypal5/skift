@@ -95,7 +95,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
     def _input_col(self, X):
         pass  # pragma: no cover
 
-    def fit(self, X, y):
+    def fit(self, X, y, X_validation=None, y_validation=None):
         """Fits the classifier
 
         Parameters
@@ -104,6 +104,10 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
             The training input samples.
         y : array-like, shape = [n_samples]
             The target values. An array of int.
+        X_validation : array-like, shape = [n_samples, n_features]
+            The validation input samples.
+        y_validation : array-like, shape = [n_samples]
+            The validation target values. An array of int.
 
         Returns
         -------
@@ -114,10 +118,16 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         self._validate_x(X)
         y = self._validate_y(y)
         input_col = self._input_col(X)
+        if X_validation is not None:
+            self._validate_x(X_validation)
+            y_validation = self._validate_y(y_validation)
+            input_col_validation = self._input_col(X_validation)
+        else:
+            input_col_validation = None
 
-        return self._fit_input_col(input_col, y)
+        return self._fit_input_col(input_col, y, input_col_validation, y_validation)
 
-    def _fit_input_col(self, input_col, y):
+    def _fit_input_col(self, input_col, y, input_col_validation=None, y_validation=None):
         # Store the classes seen during fit
         self.classes_ = unique_labels(y)
         self.num_classes_ = len(self.classes_)
@@ -126,9 +136,23 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         # Dump training set to a fasttext-compatible file
         temp_trainset_fpath = temp_dataset_fpath()
         dump_xy_to_fasttext_format(input_col, y, temp_trainset_fpath)
-        # train
-        self.model = train_supervised(
-            input=temp_trainset_fpath, **self.kwargs)
+        if input_col_validation is not None:
+            n_classes_validation = len(unique_labels(y_validation))
+            assert n_classes_validation == self.num_classes_,\
+                "Number of validation classes doesn't match number of training classes"
+            temp_trainset_fpath_validation = temp_dataset_fpath()
+            dump_xy_to_fasttext_format(input_col_validation, y_validation, temp_trainset_fpath_validation)
+            # train
+            self.model = train_supervised(
+                input=temp_trainset_fpath, **{'autotuneValidationFile': temp_trainset_fpath_validation, **self.kwargs})
+            try:
+                os.remove(temp_trainset_fpath_validation)
+            except FileNotFoundError:  # pragma: no cover
+                pass
+        else:
+            self.model = train_supervised(
+                input=temp_trainset_fpath, **self.kwargs)
+
         # Return the classifier
         try:
             os.remove(temp_trainset_fpath)
@@ -372,7 +396,7 @@ class SeriesFtClassifier(FtClassifierABC):
     def _input_col(self, X):
         pass
 
-    def fit(self, X, y):
+    def fit(self, X, y, X_validation=None, y_validation=None):
         """Fits the classifier
 
         Parameters
@@ -381,6 +405,10 @@ class SeriesFtClassifier(FtClassifierABC):
             The training input samples.
         y : array-like, shape = [n_samples]
             The target values. An array of int.
+        X_validation : pd.Series
+            The validation input samples.
+        y_validation : array-like, shape = [n_samples]
+            The validation target values. An array of int.
 
         Returns
         -------
@@ -393,7 +421,15 @@ class SeriesFtClassifier(FtClassifierABC):
         except AttributeError:
             input_col = X
         y = self._validate_y(y)
-        return self._fit_input_col(input_col, y)
+        if X_validation is not None:
+            try:
+                input_col_validation = X_validation.values
+            except AttributeError:
+                input_col_validation = X_validation
+            y_validation = self._validate_y(y_validation)
+        else:
+            input_col_validation = None
+        return self._fit_input_col(input_col, y, input_col_validation, y_validation)
 
     def _predict(self, X, k=1):
         # Ensure that fit had been called

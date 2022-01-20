@@ -136,6 +136,23 @@ These wrappers assume the ``X`` parameter given to ``fit``, ``predict``, and ``p
   >>> sk_clf.predict(['woof'])
   >>> sk_clf.predict(df['txt'])
 
+Hyper-parameter auto-tuning
+----------------------------
+
+It's possible to pass a validation set to ``fit`` in order to optimize the hyper-parameters.
+The `auto-tune settings <https://fasttext.cc/docs/en/autotune.html>`_ can be passed to the constructor. E.g.,
+
+.. code-block:: python
+
+  >>> from skift import SeriesFtClassifier
+  >>> df = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
+  >>> df_val = pandas.DataFrame([['woof woof', 0], ['meow meow', 1]], columns=['txt', 'lbl'])
+  >>> sk_clf = SeriesFtClassifier(input_col_lbl='txt', epoch=8, autotuneDuration=5)
+  >>> sk_clf.fit(df['txt'], df['lbl'], df2['txt'], df2['lbl'])
+  >>> sk_clf.predict(['woof'])
+  >>> sk_clf.predict(df['txt'])
+
+
 
 Contributing
 ============
