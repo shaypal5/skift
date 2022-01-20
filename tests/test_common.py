@@ -46,12 +46,33 @@ def test_series_predict_tune():
     assert preds[1] == 1
 
 
+def test_series_np_predict_tune():
+    ftdf = _ftdf()
+    ftdf2 = _ftdf2()
+    ft_clf = SeriesFtClassifier(autotuneDuration=5)
+    ft_clf.fit(ftdf['txt'].values, ftdf['lbl'].values, ftdf2['txt'].values, ftdf2['lbl'].values)
+
+    preds = ft_clf.predict(ftdf['txt'])
+    assert preds[0] == 0
+    assert preds[1] == 1
+
+
 def test_series_predict():
     ftdf = _ftdf()
     ft_clf = SeriesFtClassifier()
     ft_clf.fit(ftdf['txt'], ftdf['lbl'])
 
     preds = ft_clf.predict(ftdf['txt'])
+    assert preds[0] == 0
+    assert preds[1] == 1
+
+
+def test_series_np_predict():
+    ftdf = _ftdf()
+    ft_clf = SeriesFtClassifier()
+    ft_clf.fit(ftdf['txt'].values, ftdf['lbl'].values)
+
+    preds = ft_clf.predict(ftdf['txt'].values)
     assert preds[0] == 0
     assert preds[1] == 1
 
