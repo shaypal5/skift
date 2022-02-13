@@ -76,6 +76,7 @@ def test_series_predict():
     assert preds[0] == 0
     assert preds[1] == 1
 
+
 def test_series_predict_words():
     ftdf = _ftdf_words()
     ft_clf = SeriesFtClassifier()
@@ -84,7 +85,6 @@ def test_series_predict_words():
     preds = ft_clf.predict(ftdf['txt'])
     assert preds[0] == 'dog'
     assert preds[1] == 'cat'
-
 
 
 def test_series_np_predict():

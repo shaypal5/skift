@@ -270,7 +270,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         >>> clf.fit(df[['txt']], df['lbl']);
         FirstColFtClassifier(epoch=10, lr=0.3)
         >>> clf.predict([['meow meow meow']])
-        array([1.])
+        array([1])
         >>> from lime.lime_text import LimeTextExplainer;
         >>> explainer = LimeTextExplainer(bow=False)
         >>> exp = explainer.explain_instance(
