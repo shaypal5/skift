@@ -34,7 +34,6 @@ def _ftdf_words():
     )
 
 
-
 def test_bad_shape():
     ft_clf = FirstColFtClassifier()
     with pytest.raises(ValueError):
