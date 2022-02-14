@@ -180,7 +180,12 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
 
     @staticmethod
     def _clean_label(ft_label):
-        return int(ft_label[9:])
+        try:
+            res = int(ft_label[9:])
+        except ValueError:
+            res = ft_label[9:]
+
+        return res
 
     def _predict_on_str_arr(self, str_arr, k=1):
         return (self.model.predict(text, k) for text in str_arr)
@@ -211,7 +216,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         return np.array([
             self._clean_label(res[0][0])
             for res in self._predict(X)
-        ], dtype=np.float_)
+        ])
 
     def _format_probas(self, result):
         lbl_prob_pairs = zip(result[0], result[1])
@@ -265,7 +270,7 @@ class FtClassifierABC(BaseEstimator, ClassifierMixin, metaclass=abc.ABCMeta):
         >>> clf.fit(df[['txt']], df['lbl']);
         FirstColFtClassifier(epoch=10, lr=0.3)
         >>> clf.predict([['meow meow meow']])
-        array([1.])
+        array([1])
         >>> from lime.lime_text import LimeTextExplainer;
         >>> explainer = LimeTextExplainer(bow=False)
         >>> exp = explainer.explain_instance(

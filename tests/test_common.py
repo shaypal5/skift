@@ -27,6 +27,14 @@ def _ftdf2():
     )
 
 
+def _ftdf_words():
+    return pd.DataFrame(
+        data=[['woof woof', 'dog'], ['meow meow', 'cat']],
+        columns=['txt', 'lbl']
+    )
+
+
+
 def test_bad_shape():
     ft_clf = FirstColFtClassifier()
     with pytest.raises(ValueError):
@@ -67,6 +75,16 @@ def test_series_predict():
     preds = ft_clf.predict(ftdf['txt'])
     assert preds[0] == 0
     assert preds[1] == 1
+
+
+def test_series_predict_words():
+    ftdf = _ftdf_words()
+    ft_clf = SeriesFtClassifier()
+    ft_clf.fit(ftdf['txt'], ftdf['lbl'])
+
+    preds = ft_clf.predict(ftdf['txt'])
+    assert preds[0] == 'dog'
+    assert preds[1] == 'cat'
 
 
 def test_series_np_predict():
