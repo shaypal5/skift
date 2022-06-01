@@ -412,7 +412,7 @@ class SeriesFtClassifier(FtClassifierABC):
         Additional keyword arguments will be redirected to
         fasttext.train_supervised.
     """
-    def __init__(self,  **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _input_col(self, X):

@@ -148,7 +148,7 @@ First, to adjust the `auto-tune settings <https://fasttext.cc/docs/en/autotune.h
   >>> from skift import SeriesFtClassifier
   >>> df_train = pandas.DataFrame([['woof', 0], ['meow', 1]], columns=['txt', 'lbl'])
   >>> df_val = pandas.DataFrame([['woof woof', 0], ['meow meow', 1]], columns=['txt', 'lbl'])
-  >>> sk_clf = SeriesFtClassifier(input_col_lbl='txt', epoch=8, autotuneDuration=5)
+  >>> sk_clf = SeriesFtClassifier(epoch=8, autotuneDuration=5)
 
 Then, the validation dataframe (or series, in this case, since we constructed a ``SeriesFtClassifier``) and label column should be provided to the ``fit()`` method:
 
