@@ -163,6 +163,23 @@ Or simply by position:
   >>> sk_clf.fit(df_train['txt'], df_train['lbl'], df_val['txt'], df_val['lbl'])
 
 
+Using Pre-trained word vectors
+-------------------------------
+
+This is done in the exact same way as with the Python module or the fastText CLI, but not setting the right vector dimensions in the constructor (identical to the dimensions of the pretrained vectors you are using) will crash fastText without explanation, so we provide an example:
+
+.. code-block:: python
+
+    from skift import SeriesFtClassifier
+    ft_clf = SeriesFtClassifier(
+        autotuneDuration=900,
+        pretrainedVectors='/Users/myuser/data/word_vectors/crawl-300d-2M.vec',
+        dim=300,
+    )
+
+In this case, not providing the constructor with ``dim=300`` would bring about a crash when calling ``ft_clf.fit()``.
+
+
 Contributing
 ============
 
